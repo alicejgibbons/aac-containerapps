@@ -1,6 +1,6 @@
 ### YamlMime:Architecture
 metadata:
-  title: Microservices with Azure Container Apps
+  title: Microservices architecture on Azure Container Apps with Dapr
   titleSuffix: Azure Example Scenarios
   description: Build a serverless microservices solution on Azure Container Apps leveraging Distributed Application Runtime (Dapr) and Kubernetes Event-Driven Autoscaling (KEDA).
   author: alicejgibbons
@@ -18,8 +18,8 @@ products:
   - azure-sql-database
   - azure-cosmos-db
   - azure-cache-redis
-name: Microservices architecture on Azure Container Apps
+name: Microservices architecture on Azure Container Apps with Dapr
 summary: Build a serverless microservices solution on Azure Container Apps leveraging Distributed Application Runtime (Dapr) and Kubernetes Event-Driven Autoscaling (KEDA).
-thumbnailUrl: /azure/architecture/browse/thumbs/microservices-containerapps.png
+thumbnailUrl: /azure/architecture/browse/thumbs/microservices-containerapps-with-dapr.png
 content: |
-  [!include[](microservices-containerapps-content.md)]
+  [!include[](microservices-containerapps-with-dapr-content.md)]
