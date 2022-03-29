@@ -2,7 +2,7 @@
 
 Microservices are an increasingly popular architecture style that can have many benefits including high scalability, shorter development cycles, and increased simplicity. Containers are often used as a mechanism to deploy microservices applications and a container orchestrator such as Kubernetes becomes more useful as the number of services in the solution grows. However, there are a number of factors that must be considered for large scale microservices architectures and typically the infrastructure platform requires significant understanding of complex technologies such as container orchestrators.
 
-[Azure Container Apps](https://azure.microsoft.com/services/container-apps/)(Preview) is a fully managed serverless container service for running modern applications at scale. It enables developers to deploy containerized apps without managing complicated infrastructure through abstraction of the underlying platform and is powered by open-source technologies.
+[Azure Container Apps](https://azure.microsoft.com/services/container-apps/) (Preview) is a fully managed serverless container service for running modern applications at scale. It enables developers to deploy containerized apps without managing complicated infrastructure through abstraction of the underlying platform and is powered by open-source technologies.
 
 This architecture leverages Azure Container Apps integration with a managed version of the [Distributed Application Runtime (Dapr)](https://dapr.io/). Dapr is an open source project that helps developers with the inherent challenges presented by distributed applications, such as state management and service invocation.
 
@@ -10,9 +10,9 @@ In addition, Container Apps provides a managed version of [Kubernetes Event Driv
 
 HTTPS ingress can also be enabled in Azure Container Apps without the creation of any additional Azure networking resources. This is done using the [Envoy proxy](https://www.envoyproxy.io/) and allows for traffic splitting scenarios as well.
 
-To explore how Azure Container Apps compares to other container hosting options in Azure, see [Comparing Container Apps with other Azure container options](/azure/container-apps/compare-options). Note that Azure Container Apps is currently in Public Preview and so not recommended for production workloads.
+To explore how Azure Container Apps compares to other container hosting platforms in Azure, see [Comparing Container Apps with other Azure container options](/azure/container-apps/compare-options). Note that Azure Container Apps is currently in Public Preview and so not recommended for production workloads. 
 
-This article describes a solution for running an order management system with ten microservices on Azure Container Apps while leveraging microservices best practices through the Distributed Application Runtime (Dapr) and event-driven scaling with Kubernetes Event-Driven Autoscaling (KEDA).
+This article describes a solution for running an order management system with ten microservices on Azure Container Apps while leveraging microservices best practices through Dapr and event-driven scaling with KEDA.
 
 ## Potential use cases
 
@@ -56,13 +56,13 @@ Each microservice is described below followed by the Container Apps configuratio
 |------------------|---------|--------------------|--------------------|
 | Traefik | External | Dapr not enabled | HTTP |
 | UI | Internal | Dapr not enabled | HTTP |
-| Virtual Customer | None | Service to Service Invocation | n/a |
+| Virtual Customer | None | Service to Service Invocation | N/A |
 | Order Service | Internal | PubSub: Azure Service Bus | HTTP |
-| Accounting Service | Internal | PubSub: Azure Service Bus | Azure Service Bus Topic Length / HTTP |
+| Accounting Service | Internal | PubSub: Azure Service Bus | Azure Service Bus Topic Length, HTTP |
 | Receipt Service | Internal | PubSub: Azure Service Bus, Binding: Azure Blob | Azure Service Bus Topic Length |
 | Loyalty Service | Internal | PubSub: Azure Service Bus, State: Azure Cosmos DB | Azure Service Bus Topic Length |
-| Makeline Service | Internal | PubSub: Azure Service Bus, State: Azure Redis | Azure Service Bus Topic Length / HTTP |
-| Virtual Worker | None | Service to Service Invocation, Binding: Cron | n/a |
+| Makeline Service | Internal | PubSub: Azure Service Bus, State: Azure Redis | Azure Service Bus Topic Length, HTTP |
+| Virtual Worker | None | Service to Service Invocation, Binding: Cron | N/A |
 
 > [!NOTE]
 > Bootstrapper is also be executed in a Container App. However, this service is run once to perform the database creation and is subsequently scaled to 0 after creating the necessary objects in Azure SQL Database.
@@ -102,6 +102,10 @@ ContainerAppConsoleLogs_CL |
     order by _timestamp_d asc
 ```
 
+The Application Map in App Insights also showcases how the services are communicating in real time and can be used for debugging scenarios. Navigate to the Application Map under the Application Insights resource to view something similar to the following.
+
+![Application Map](./media/microservices-containerapps-with-dapr-appmap.png)
+
 For more information on monitoring Container Apps, see [Monitor an app in Azure Container Apps](/azure/container-apps/monitor).
 
 ### Scalability
@@ -119,7 +123,7 @@ Azure Container Apps runs on Kubernetes behind the scenes. Built into Kubernetes
 For deployment instructions see the 'Getting Started' section on [GitHub](https://github.com/Azure/reddog-containerapps/blob/main/README.md#getting-started).
 
 > [!NOTE]
-> Azure Container Apps is in Public Preview and so is not recommended for production workloads at this time.
+> While Azure Container Apps is in Public Preview it is not recommended for production workloads. The service is also only available in [a subset of Azure regions today](https://azure.microsoft.com/en-ca/global-infrastructure/services/?products=container-apps).
 
 ## Next steps
 
